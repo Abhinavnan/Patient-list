@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";  
 import { getPatient, deletePatient } from "../services/ApiService";
 import AddPatient from "./AddPatient";
+import EditPatient from "./EditPatient";
 
 const PatientList = () => {
     const [patients, setPatients] = useState([]);
     const [showAddPatient, setShowAddPatient] = useState(false);
+    const [editingPatient, setEditPatient] = useState(null);
     useEffect(() => {
         let mount = true    //mounting the component else useStates will be lost
         getPatient().then(data => {
@@ -13,6 +15,13 @@ const PatientList = () => {
         }) //imported getPatient from ApiService.tsx
             
     }, [])
+    const handleEditBtn = (patient) => {
+        setEditPatient(patient);
+    };
+
+    const handleCancelEditBtn = () => {
+        setEditPatient(null);
+    };
     const handleDeleteBtn = (id) => {
         deletePatient(id)
             .then(() => setPatients(patients.filter(patient => patient.patient_id !== id)))
@@ -46,7 +55,7 @@ const PatientList = () => {
                         <td>{patient.age}</td>
                         <td>{patient.blood_group}</td>
                         <td>
-                            <button className="btn btn-primary m-2">Edit</button>
+                        <button className="btn btn-primary m-2" onClick={() => handleEditBtn(patient)}>Edit</button>
                             <button className="btn btn-danger" onClick={() => handleDeleteBtn(patient.patient_id)}>Delete</button>
                         </td>
                     </tr>
@@ -58,6 +67,7 @@ const PatientList = () => {
         <br />
         <br />
         {showAddPatient && <AddPatient handleCancelBtn={handleCancelBtn} />}
+        {editingPatient && <EditPatient handleEditBtn={editingPatient} handleCancelEditBtn={handleCancelEditBtn} />}
         </div>
     )
 }
