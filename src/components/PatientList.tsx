@@ -33,6 +33,7 @@ const PatientList = () => {
             setPatients(data)
         })
     }
+    addEventListener("submit", () => {getPatient().then(data => {setPatients(data); setEditPatient(null); setShowAddPatient(false)}) });
     console.log(patients)
     return (
         <div className="container">

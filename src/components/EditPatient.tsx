@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, use } from "react";
 import PatientList from "./PatientList";
 import {editPatient} from "../services/ApiService";
 
@@ -12,10 +12,7 @@ const EditPatient = ({ editingPatient, handleCancelEditBtn }) => {
         const updatedFields = {name, age, blood_group};    
         editPatient(editingPatient.patient_id, updatedFields);
         console.log("handleSubmit: ", updatedFields );
-        window.location.reload();   //reload the page
-        setAge("");
-        setName("");
-        setBloodGroup("");
+        //window.location.reload();   //reload the page
     }
     return (
         <>
