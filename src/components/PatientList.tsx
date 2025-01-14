@@ -67,7 +67,7 @@ const PatientList = () => {
         <br />
         <br />
         {showAddPatient && <AddPatient handleCancelBtn={handleCancelBtn} />}
-        {editingPatient && <EditPatient handleEditBtn={editingPatient} handleCancelEditBtn={handleCancelEditBtn} />}
+        {editingPatient && <EditPatient editingPatient={editingPatient}  handleCancelEditBtn={handleCancelEditBtn} />}
         </div>
     )
 }
