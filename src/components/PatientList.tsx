@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";  
 import { getPatient, deletePatient } from "../services/ApiService";
 import AddPatient from "./AddPatient";

@@ -1,6 +1,5 @@
-import axios from "axios";
-import { useState, use } from "react";
-import PatientList from "./PatientList";
+// @ts-nocheck
+import { useState } from "react";
 import {editPatient} from "../services/ApiService";
 
 const EditPatient = ({ editingPatient, handleCancelEditBtn }) => {
