@@ -32,7 +32,7 @@ const EditPatient = ({ editingPatient, handleCancelEditBtn }) => {
                     <input type="text" className="form-control" id="blood_group" defaultValue={editingPatient.blood_group} 
                     onChange={(e) => setBloodGroup(e.target.value)} />
                 </div>
-                <button type="button" className="btn btn-secondary" onClick={handleCancelEditBtn}>Cancel</button>
+                <button type="button" className="btn btn-secondary m-2" onClick={handleCancelEditBtn}>Cancel</button>
                 <button type="submit" className="btn btn-primary">Save</button>
             </form>
         </>
