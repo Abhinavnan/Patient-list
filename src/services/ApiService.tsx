@@ -1,7 +1,8 @@
 // @ts-nocheck
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:8000/patients/";
+const BASE_URL = "http://3.110.176.180:8000/patients/" || "http://127.0.0.1:8000/patients/";
+// api url for production and local development
 export function getPatient() {
   return axios.get(BASE_URL)  // make a GET request to the server
     .then(response => response.data)  // get data from response
