@@ -43,20 +43,6 @@ INSTALLED_APPS = [
     'sslserver',  # Adding the sslserver app to the INSTALLED_APPS list
 ]
 
-<<<<<<< HEAD
-ASGI_APPLICATION = "backend.asgi.application" # Adding the ASGI_APPLICATION setting for the Channels application
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("0.0.0.0", 8000)],  # Replace with your Redis host/port
-        },
-    },
-}
-
-=======
->>>>>>> parent of e7f6623 (websocket)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
