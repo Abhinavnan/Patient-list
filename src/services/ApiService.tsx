@@ -2,18 +2,22 @@
 import axios from "axios";
 
 const Local_URL = "http://127.0.0.1:8000/patients/"  
-const Prod_URL = "http://3.110.176.180:8000/patients/"
+const Prod_URL = "http://13.126.125.159:8000/patients/"
 //const BASE_URL = process.env.NODE_ENV === 'development' ? Prod_URL : Local_URL;
-let BASE_URL  = Local_URL
-
+let BASE_URL  = null; // Default to Prod_URL
 const setBaseUrl = async () => {
   try {
-    const response = await axios.head(Prod_URL, { timeout: 5000 }); // Check Prod_URL availability
+    // Perform a lightweight GET request to Prod_URL
+    const response = await axios.get(Prod_URL, {
+      timeout: 500,
+      params: { check: true }, // Optional: Add a harmless query parameter
+    });
     if (response.status === 200) {
       BASE_URL = Prod_URL; // Use Prod_URL if available
+      console.log("Prod_URL is reachable. Setting BASE_URL to Prod_URL.");
     }
   } catch (error) {
-    console.error("Prod_URL unavailable, using Local_URL:", error.message);
+    console.error("Error accessing Prod_URL. Falling back to Local_URL:", error.message);
     BASE_URL = Local_URL; // Fallback to Local_URL
   }
 };
@@ -23,7 +27,8 @@ setBaseUrl().then(() => {
   console.log("BASE_URL set to:", BASE_URL);
 });
 
-export function getPatient() {
+export async function getPatient() { 
+  await setBaseUrl();
   return axios.get(BASE_URL)  // make a GET request to the server
     .then(response => response.data)  // get data from response
     .catch(error => {
