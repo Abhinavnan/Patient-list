@@ -9,7 +9,7 @@ const setBaseUrl = async () => {
   try {
     // Perform a lightweight GET request to Prod_URL
     const response = await axios.get(Prod_URL, {
-      timeout: 5000,
+      timeout: 500,
       params: { check: true }, // Optional: Add a harmless query parameter
     });
     if (response.status === 200) {
@@ -37,8 +37,7 @@ export async function getPatient() {
     });
 }
 
-export async function addPatient(data) {
-  await setBaseUrl();
+export function addPatient(data) {
   return axios.post(BASE_URL, data)  // make a POST request to the server
     .then(response => response.data)  // get data from response
     .catch(error => {
@@ -47,8 +46,7 @@ export async function addPatient(data) {
     });
 }
 
-export async function deletePatient(id) {
-  await setBaseUrl();
+export function deletePatient(id) {
   return axios.delete(BASE_URL + id + '/')  // make a DELETE request to the server
     .then(response => response.data)  // get data from response
     .catch(error => {
@@ -57,8 +55,7 @@ export async function deletePatient(id) {
     });
 }
 
-export async function editPatient(id, data) { // make a PUT request to the server
-  await setBaseUrl();
+export function editPatient(id, data) { // make a PUT request to the server
   return axios.put(BASE_URL + id + '/', data)  // make a PUT request to the server
     .then(response => response.data)  // get data from response 
     .catch(error => {
