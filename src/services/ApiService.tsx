@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const Local_URL = "http://127.0.0.1:8000/patients/"  
-const Prod_URL = "https://patientlist.duckdns.org:8000/patients/"
+const Prod_URL = "http://13.126.125.159:8000/patients/"
 //const BASE_URL = process.env.NODE_ENV === 'development' ? Prod_URL : Local_URL;
 let BASE_URL  = null; // Default to Prod_URL
 const setBaseUrl = async () => {
