@@ -1,15 +1,14 @@
 // @ts-nocheck
-import axios from "axios";
+import {addPatient} from "../services/ApiService";
 import { useState } from "react";
 
-const BASE_URL = "http://3.110.176.180:8000/patients/" || "http://127.0.0.1:8000/patients/";
 const AddPatient = ({ handleCancelBtn }) => {
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [blood_group, setBloodGroup] = useState("");
     const handleAddSubmit = async e => {
         e.preventDefault(); // prevent the default form submission
-        const response = await axios.post(BASE_URL, {name, age, blood_group});
+        const response = await addPatient({name, age, blood_group});
         console.log("handleSubmit: ", response.data);
         setAge("");
         setName("");
