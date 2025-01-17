@@ -4,21 +4,26 @@ import axios from "axios";
 const Local_URL = "http://127.0.0.1:8000/patients/"  
 const Prod_URL = "http://3.110.176.180:8000/patients/"
 //const BASE_URL = process.env.NODE_ENV === 'development' ? Prod_URL : Local_URL;
-let BASE_URL = Local_URL;
-/*
-const validateUrl = async (remoteUrl, localUrl) => {
+let BASE_URL  = Local_URL
+
+const setBaseUrl = async () => {
   try {
-    const response = await fetch(remoteUrl, { method: "HEAD" });
-    if (response.ok) {
-      return remoteUrl; // Remote URL is valid
+    const response = await axios.head(Prod_URL, { timeout: 5000 }); // Check Prod_URL availability
+    if (response.status === 200) {
+      BASE_URL = Prod_URL; // Use Prod_URL if available
     }
   } catch (error) {
-    console.error("Error validating remote URL:", error);
+    console.error("Prod_URL unavailable, using Local_URL:", error.message);
+    BASE_URL = Local_URL; // Fallback to Local_URL
   }
-  return localUrl; // Fallback to local URL
 };
-*/
-export function getPatient() { //BASE_URL = validateUrl(Prod_URL, Local_URL);
+
+// Immediately set BASE_URL when the module is imported
+setBaseUrl().then(() => {
+  console.log("BASE_URL set to:", BASE_URL);
+});
+
+export function getPatient() {
   return axios.get(BASE_URL)  // make a GET request to the server
     .then(response => response.data)  // get data from response
     .catch(error => {
