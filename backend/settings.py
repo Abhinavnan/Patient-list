@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',  # Adding the rest_framework app to the INSTALLED_APPS list
     'backend',  # Adding the backend app to the INSTALLED_APPS list
     'corsheaders',  # Adding the corsheaders app to the INSTALLED_APPS list
+    'sslserver',  # Adding the sslserver app to the INSTALLED_APPS list
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,19 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True # This setting allows all origins to access the API
+
+# Ensure the application is aware it's running behind HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Enforce HTTPS
+SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
+CSRF_COOKIE_SECURE = True   # Secure CSRF cookie
+SESSION_COOKIE_SECURE = True  # Secure session cookie
+
+# Optionally, add HSTS (HTTP Strict Transport Security)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 
 REST_FRAMEWORK = {
