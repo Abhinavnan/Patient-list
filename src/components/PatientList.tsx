@@ -19,6 +19,21 @@ const PatientList = () => {
             isMounted = false; // Cleanup on component unmount
         };
     }, []);
+    // Fetch patients using WebSocket for real-time updates
+    useEffect(() => {
+        const socket = new WebSocket("wss://patientlist.duckdns.org/ws/patients/");    
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            setPatients(data); // Update patients when a message is received
+        };
+    
+        socket.onclose = () => console.log("WebSocket closed");
+        socket.onerror = (error) => console.error("WebSocket error:", error);
+    
+        return () => {
+            socket.close(); // Cleanup on component unmount
+        };
+    }, []);
 
     // Handle input change for edit form
     const handleInputChange = (e) => {

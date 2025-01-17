@@ -41,7 +41,19 @@ INSTALLED_APPS = [
     'backend',  # Adding the backend app to the INSTALLED_APPS list
     'corsheaders',  # Adding the corsheaders app to the INSTALLED_APPS list
     'sslserver',  # Adding the sslserver app to the INSTALLED_APPS list
+    'channels',  # Adding the channels app to the INSTALLED_APPS list
 ]
+
+ASGI_APPLICATION = "backend.asgi.application" # Adding the ASGI_APPLICATION setting for the Channels application
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("*", 8000)],  # Replace with your Redis host/port
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
